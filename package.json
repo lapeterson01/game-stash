@@ -1,7 +1,7 @@
 {
-  "name": "server",
+  "name": "game-stash-server",
   "version": "1.0.0",
-  "description": "",
+  "description": "Game Stash - Server",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -15,11 +15,15 @@
     "body-parser": "^1.18.2",
     "concurrently": "^3.5.1",
     "cookie-session": "^2.0.0-beta.3",
+    "dotenv": "^5.0.1",
     "express": "^4.16.3",
-    "mongoose": "^5.0.11",
+    "mysql": "^2.15.0",
     "nodemon": "^1.17.2",
     "passport": "^0.4.0",
     "passport-google-oauth20": "^1.0.0"
   },
-  "client": "npm run start --prefix client"
+  "engines": {
+    "node": "8.9.4",
+    "npm": "5.6.0"
+  }
 }
