@@ -8,9 +8,12 @@ class Header extends Component {
             case null:
                 return;
             case false:
-                return <a className="nav-link" href="/auth/google">Login With Google</a>
+                return <li><a className="nav-link" href="/auth/google">Login With Google</a></li>
             default:
-                return <a className="nav-link" href="/api/logout">Logout</a>
+                return [
+                    <a className="nav-link" href={`/profile/123`}>Profile</a>,
+                    <a className="nav-link" href="/api/logout">Logout</a>
+                ]
         }
     }
 
@@ -18,13 +21,13 @@ class Header extends Component {
         return (
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
                 <div className="container">
-                    <Link to={this.props.auth ? "/games" : "/"} className="navbar-brand">
-                        Game Stash
-                    </Link>
-                    <Link to='/scores' className="nav-link mr-auto">
-                        High Scores
-                    </Link>
-                    {this.renderContent()}
+                        <Link to={this.props.auth ? "/games" : "/"} className="navbar-brand">
+                            Game Stash
+                        </Link>
+                        <Link to='/scores' className="nav-link mr-auto">
+                            High Scores
+                        </Link>
+                        {this.renderContent()}
                 </div>
             </nav>
         )
