@@ -9,7 +9,7 @@ module.exports = app => {
     });
 
     app.get('/api/games/:gameID', (req, res) => {
-        pool.query('SELECT fileName FROM game WHERE gID = ?', [req.params.gameID], (err, result, fields) => {
+        pool.query('SELECT * FROM games WHERE gID = ?', [req.params.gameID], (err, result, fields) => {
             if (err) throw err;
             res.send(result);
         })

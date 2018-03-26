@@ -22,7 +22,7 @@ class App extends Component {
             <div className="container" id="main-page">
               <Route exact path='/' component={Home} />
               <Route exact path='/games' component={GameList} />
-              <Route path='/games/:gameName' component={GameDetail} />
+              <Route path='/games/:gameID' component={GameDetail} />
               <Route path='/scores' component={Scores} />
             </div>
           </div>
