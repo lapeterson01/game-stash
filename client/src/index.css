@@ -36,3 +36,11 @@
 .vcenter-image {
     margin-top: 30px;
 }
+
+iframe {
+    border: none;
+}
+
+.scores-menu {
+    margin-top: 20px;
+}

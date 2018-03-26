@@ -6,7 +6,21 @@ class Scores extends Component {
     constructor(props) {
         super(props)
 
-        this.props.fetchScores();
+        this.props.fetchGames();
+    }
+
+    onDropdownChange = (event) => {
+        this.props.fetchScores(event.target.value);
+    }
+
+    renderDropdown() {
+        if (this.props.games.length === 0) {
+            return;
+        } else {
+            return this.props.games.map(game => 
+                <option key={game.gID} value={game.gID}>{game.name}</option>
+            )
+        }
     }
 
     renderScores() {
@@ -33,31 +47,50 @@ class Scores extends Component {
     }
 
     render() {
-        return (
-            <div>
-                <h2 className="text-center">HIGH SCORES</h2>
-                <div className="row" style={{border:"solid black 3px", paddingTop:"15px"}}>
-                    <div className="col text-center">
-                        <h4>Place</h4>
+        switch (this.props.scores) {
+            case null:
+                return (
+                    <div className="jumbotron">
+                        <h2 className="text-center scores-menu">HIGH SCORES</h2>
+                        <h5 className="text-center scores-menu">What game would you like to see high scores for?</h5>
+                        <select className="form-control scores-menu" name="game" onChange={this.onDropdownChange}>
+                            <option value="">Select a Game</option>
+                            {this.renderDropdown()}
+                        </select>
                     </div>
-                    <div className="col text-center">
-                        <h4>Player</h4>
+                )
+            default:
+                return (
+                    <div>
+                        <h2 className="text-center">HIGH SCORES</h2>
+                        <div className="row" style={{border:"solid black 3px", paddingTop:"15px"}}>
+                            <div className="col text-center">
+                                <h4>Place</h4>
+                            </div>
+                            <div className="col text-center">
+                                <h4>Player</h4>
+                            </div>
+                            <div className="col text-center">
+                                <h4>Game</h4>
+                            </div>
+                            <div className="col text-center">
+                                <h4>Score</h4>
+                            </div>
+                            {this.renderScores()}
+                        </div>
                     </div>
-                    <div className="col text-center">
-                        <h4>Game</h4>
-                    </div>
-                    <div className="col text-center">
-                        <h4>Score</h4>
-                    </div>
-                    {this.renderScores()}
-                </div>
-            </div>
-        )
+                )
+        }
     }
 };
 
-const mapStateToProps = ({ scores }) => {
-    return { scores };
+const mapStateToProps = (state) => {
+    return (
+        {
+            scores: state.scores,
+            games: state.games
+        }
+    );
 }
 
 export default connect(mapStateToProps, actions)(Scores);

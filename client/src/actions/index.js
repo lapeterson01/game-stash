@@ -13,8 +13,8 @@ export const fetchGames = () => async dispatch => {
     dispatch({ type: FETCH_GAMES, payload: res.data });
 };
 
-export const fetchScores = () => async dispatch => {
-    const res = await axios.get('/api/scores')
+export const fetchScores = (game) => async dispatch => {
+    const res = await axios.get(`/api/scores?game=${game}`)
 
     dispatch({ type: FETCH_SCORES, payload: res.data });
 };

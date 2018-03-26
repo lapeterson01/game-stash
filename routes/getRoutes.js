@@ -16,7 +16,7 @@ module.exports = app => {
     });
 
     app.get('/api/scores', (req, res) => {
-        pool.query('SELECT u.name as player, u.imageURL as profilePic, g.name as game, g.imageURL as gamePic, s.score FROM users as u JOIN scores as s ON u.uID = s.uID JOIN games as g ON s.gID = g.gID WHERE g.gID = 3 GROUP BY s.score DESC', (err, results, fields) => {
+        pool.query('SELECT u.name as player, u.imageURL as profilePic, g.name as game, g.imageURL as gamePic, s.score FROM users as u JOIN scores as s ON u.uID = s.uID JOIN games as g ON s.gID = g.gID WHERE g.gID = ? GROUP BY s.score DESC', [req.query.game], (err, results, fields) => {
             if (err) throw err;
             res.send(results);
         })
