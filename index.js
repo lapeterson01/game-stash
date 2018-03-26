@@ -1,4 +1,5 @@
 require('dotenv').config();
+// require('../breakout');
 const express = require('express');
 const passport = require('passport');
 const cookieSession = require('cookie-session');
@@ -19,6 +20,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 require('./routes/authRoutes')(app);
+require('./routes/getRoutes')(app);
 
 const PORT = 5000;
 app.listen(PORT, () => {

@@ -18,8 +18,11 @@ class Header extends Component {
         return (
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
                 <div className="container">
-                    <Link to={this.props.auth ? "/games" : "/"} className="navbar-brand mr-auto" href="/">
+                    <Link to={this.props.auth ? "/games" : "/"} className="navbar-brand">
                         Game Stash
+                    </Link>
+                    <Link to='/scores' className="nav-link mr-auto">
+                        High Scores
                     </Link>
                     {this.renderContent()}
                 </div>

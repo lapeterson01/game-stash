@@ -6,6 +6,7 @@ import Header from './Header';
 import Home from './Home';
 import GameList from './GameList';
 import GameDetail from './GameDetail';
+import Scores from './Scores';
 
 class App extends Component {
   componentDidMount() {
@@ -21,7 +22,8 @@ class App extends Component {
             <div className="container" id="main-page">
               <Route exact path='/' component={Home} />
               <Route exact path='/games' component={GameList} />
-              <Route path='/games/:gameId' component={GameDetail} />
+              <Route path='/games/:gameName' component={GameDetail} />
+              <Route path='/scores' component={Scores} />
             </div>
           </div>
         </BrowserRouter>
