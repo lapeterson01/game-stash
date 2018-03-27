@@ -8,9 +8,9 @@
     margin: 10px;
 }
 
-.games-image {
-    height: auto;
-    width: 240px;
+.game-image {
+    height: 120px;
+    width: auto;
 }
 
 .link {

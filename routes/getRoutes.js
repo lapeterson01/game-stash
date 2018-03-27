@@ -2,8 +2,16 @@ const pool = require('../db/pool');
 
 module.exports = app => {
     app.get('/api/games', (req, res) => {
-        pool.query('SELECT * FROM games', (err, results, fields) => {
+        let search;
+        if (req.query.search) search = pool.escape(`%${req.query.search}%`)
+        let query = 'SELECT * FROM games'
+
+        if (req.query.search) query += ` WHERE name LIKE ${search}`;
+        console.log(query);
+
+        pool.query(query, (err, results, fields) => {
             if (err) throw err;
+            console.log(results);
             res.send(results);
         })
     });
