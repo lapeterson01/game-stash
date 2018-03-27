@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import * as actions from '../actions';
 
 class Header extends Component {
@@ -23,12 +22,18 @@ class Header extends Component {
         this.setState({ term: "" });
     }
 
+    onLinkClick = (event) => {
+        event.preventDefault();
+
+        window.location.reload();
+    }
+
     renderContent() {
         switch (this.props.auth) {
             case null:
                 return;
             case false:
-                return <li><a className="nav-link" href="/auth/google">Login With Google</a></li>
+                return <a className="nav-link" href="/auth/google">Login With Google</a>
             default:
                 return [
                     <a key="1" className="nav-link" href={`/profile/123`}>Profile</a>,
@@ -42,12 +47,12 @@ class Header extends Component {
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
                 <div className="container">
                     <div className="row">
-                        <Link to={this.props.auth ? "/games" : "/"} className="navbar-brand">
+                        <a href={this.props.auth ? "/games" : "/"} className="navbar-brand">
                             Game Stash
-                        </Link>
-                        <Link to='/scores' className="nav-link mr-auto">
+                        </a>
+                        <a href='/scores' className="nav-link mr-auto">
                             High Scores
-                        </Link>
+                        </a>
                     </div>
                     <div className="row" onSubmit={this.onFormSubmit}>
                         <form className="input-group">

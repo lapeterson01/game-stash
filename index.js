@@ -1,9 +1,9 @@
 require('dotenv').config();
-// require('../breakout');
 const express = require('express');
 const passport = require('passport');
 const cookieSession = require('cookie-session');
 const bodyParser = require('body-parser');
+const fileUpload = require('express-fileupload');
 const keys = require('./config/keys');
 require('./services/passport');
 
@@ -18,9 +18,11 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(fileUpload());
 
 require('./routes/authRoutes')(app);
 require('./routes/getRoutes')(app);
+require('./routes/postRoutes')(app);
 
 const PORT = 5000;
 app.listen(PORT, () => {

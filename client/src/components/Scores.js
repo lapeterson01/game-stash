@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import * as actions from '../actions';
 
 class Scores extends Component {
@@ -7,10 +8,29 @@ class Scores extends Component {
         super(props)
 
         this.props.fetchGames();
+
+        this.state = {
+            game: null,
+            redirect: false
+        }
     }
 
     onDropdownChange = (event) => {
+        this.setState({ game: event.target.value });
         this.props.fetchScores(event.target.value);
+    }
+
+    onGameButtonClick = (event) => {
+        event.preventDefault();
+
+        console.log(this.props.game);
+        if (this.props.game) {
+            this.props.fetchGame(this.props.game[0].gID)
+                .then(this.setState({ redirect: true }));
+        } else {
+            this.props.fetchGame(this.state.game)
+                .then(this.setState({ redirect: true }));
+        }
     }
 
     renderDropdown() {
@@ -47,6 +67,19 @@ class Scores extends Component {
     }
 
     render() {
+        console.log(this.props.scores)
+        console.log(this.props.game);
+        if (this.state.redirect) {
+            if (this.props.game) {
+                return (
+                    <Redirect to={`/games/detail/${this.props.game[0].gID}`} />
+                )
+            } else {
+                return (
+                    <Redirect to={`/games/detail/${this.state.game}`} />
+                )
+            }
+        }
         switch (this.props.scores) {
             case null:
                 return (
@@ -60,9 +93,14 @@ class Scores extends Component {
                     </div>
                 )
             default:
+                
                 return (
                     <div>
                         <h2 className="text-center">HIGH SCORES</h2>
+                        <hr />
+                        <div className="row justify-content-start">
+                            <button className="btn-link" onClick={this.onGameButtonClick}>Play Game</button>
+                        </div>
                         <div className="row" style={{border:"solid black 3px", paddingTop:"15px"}}>
                             <div className="col text-center">
                                 <h4>Place</h4>
@@ -88,7 +126,8 @@ const mapStateToProps = (state) => {
     return (
         {
             scores: state.scores,
-            games: state.games
+            games: state.games,
+            game: state.game
         }
     );
 }

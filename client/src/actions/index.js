@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_USER, FETCH_GAMES, FETCH_GAME, FETCH_SCORES } from './types';
+import { FETCH_USER, FETCH_GAMES, FETCH_GAME, FETCH_SCORES, POST_GAME } from './types';
 
 export const fetchUser = () => async dispatch => {
     const res = await axios.get('/api/current_user')
@@ -26,3 +26,16 @@ export const fetchScores = (game) => async dispatch => {
 
     dispatch({ type: FETCH_SCORES, payload: res.data });
 };
+
+export const postGame = (file) => async dispatch => {
+    let formData = new FormData();
+    formData.append('file', file);
+    // const config = {
+    //     headers: {
+    //         'content-type': 'multipart/form-data'
+    //     }
+    // }
+    const res = await axios.post('/api/games', formData)
+
+    dispatch({ type: POST_GAME, payload: res.data });
+}

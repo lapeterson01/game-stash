@@ -11,13 +11,21 @@ class GameList extends Component {
     }
 
     renderGames() {
-        return this.props.games.map(game =>
-            <Link to={`/games/detail/${game.gID}`} key={game.gID} className="col text-center games">
-                <img className="game-image" src={game.imageURL} alt={game.name} />
-                <h2 className="link">{game.name}</h2>
-                <p className="link">{game.description}</p>
-            </Link>
-        )
+        if (this.props.games.length === 0) {
+            return (
+                <div>
+                    <h1>No Results</h1>
+                </div>
+            )
+        } else {
+            return this.props.games.map(game =>
+                <Link to={`/games/detail/${game.gID}`} key={game.gID} className="col text-center games">
+                    <img className="game-image" src={game.imageURL} alt={game.name} />
+                    <h2 className="link">{game.name}</h2>
+                    <p className="link">{game.description}</p>
+                </Link>
+            )
+        }
     }
 
     render() {

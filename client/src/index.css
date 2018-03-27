@@ -44,3 +44,7 @@ iframe {
 .scores-menu {
     margin-top: 20px;
 }
+
+.btn-link {
+    border: none;
+}
