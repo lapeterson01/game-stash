@@ -7,11 +7,9 @@ module.exports = app => {
         let query = 'SELECT * FROM games'
 
         if (req.query.search) query += ` WHERE name LIKE ${search}`;
-        console.log(query);
 
         pool.query(query, (err, results, fields) => {
             if (err) throw err;
-            console.log(results);
             res.send(results);
         })
     });

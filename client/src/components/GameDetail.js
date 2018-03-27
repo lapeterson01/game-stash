@@ -20,8 +20,14 @@ class GameDetail extends Component {
         }
         return (
             <div>
-                <h2 className="text-center">{game.name}</h2>
-                <iframe title={game.name} src={`/${game.fileName}`} width="100%" height="600" />
+                <div className="row justify-content-end">
+                    <a href="/games/new">Upload Your Game</a>
+                </div>
+                <hr />
+                <div className="row">
+                    <h2 className="text-center">{game.name}</h2>
+                    <iframe title={game.name} src={`/${game.fileName}`} width="100%" height="600" />
+                </div>
             </div>
         )
     }

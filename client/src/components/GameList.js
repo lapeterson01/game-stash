@@ -12,7 +12,7 @@ class GameList extends Component {
 
     renderGames() {
         return this.props.games.map(game =>
-            <Link to={`/games/${game.gID}`} key={game.gID} className="col text-center games">
+            <Link to={`/games/detail/${game.gID}`} key={game.gID} className="col text-center games">
                 <img className="game-image" src={game.imageURL} alt={game.name} />
                 <h2 className="link">{game.name}</h2>
                 <p className="link">{game.description}</p>
@@ -23,6 +23,10 @@ class GameList extends Component {
     render() {
         return (
             <div>
+                <div className="row justify-content-end">
+                    <a href="/games/new">Upload Your Game</a>
+                </div>
+                <hr />
                 <div className="row">
                     {this.renderGames()}
                 </div>

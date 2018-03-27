@@ -8,6 +8,7 @@ import GameList from './GameList';
 import GameDetail from './GameDetail';
 import Scores from './Scores';
 import Profile from './Profile';
+import Upload from './Upload';
 
 class App extends Component {
   componentDidMount() {
@@ -23,7 +24,8 @@ class App extends Component {
             <div className="container" id="main-page">
               <Route exact path='/' component={Home} />
               <Route exact path='/games' component={GameList} />
-              <Route path='/games/:gameID' component={GameDetail} />
+              <Route exact path='/games/new' component={Upload} />
+              <Route path='/games/detail/:gameID' component={GameDetail} />
               <Route path='/scores' component={Scores} />
               <Route path='/profile/:userID' component={Profile} />
             </div>

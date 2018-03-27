@@ -10,7 +10,6 @@ export const fetchUser = () => async dispatch => {
 export const fetchGames = (search) => async dispatch => {
     let url = `/api/games${search ? `?search=${search}` : ''}`;
 
-    console.log(url);
     const res = await axios.get(url)
 
     dispatch({ type: FETCH_GAMES, payload: res.data });
