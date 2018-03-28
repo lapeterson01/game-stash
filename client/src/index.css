@@ -48,3 +48,7 @@ iframe {
 .btn-link {
     border: none;
 }
+
+.btn-link:hover {
+    cursor: pointer;
+}

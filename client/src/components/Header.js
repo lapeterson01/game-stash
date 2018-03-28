@@ -18,8 +18,8 @@ class Header extends Component {
     onFormSubmit = (event) => {
         event.preventDefault();
 
-        this.props.fetchGames(this.state.term);
-        this.setState({ term: "" });
+        this.props.fetchGames(this.state.term)
+            .then(this.setState({ term: "" }))
     }
 
     onLinkClick = (event) => {
@@ -28,7 +28,41 @@ class Header extends Component {
         window.location.reload();
     }
 
-    renderContent() {
+    renderLeftContent() {
+        switch (this.props.auth) {
+            case null:
+                return;
+            case false:
+                return <a href="/" className="navbar-brand">Game Stash</a>
+            default:
+                return [
+                    <a href="/games" className="navbar-brand">Game Stash</a>,
+                    <a href='/scores' className="nav-link mr-auto">High Scores</a>
+                ]
+        }
+    }
+
+    renderMidContent() {
+        switch (this.props.auth) {
+            case null:
+                return;
+            case false:
+                return;
+            default:
+                return (
+                    <form className="input-group">
+                        <input
+                            placeholder="Search Games"
+                            className="form-control"
+                            value={this.state.term}
+                            onChange={this.onInputChange}
+                        />
+                    </form>
+                )
+        }
+    }
+
+    renderRightContent() {
         switch (this.props.auth) {
             case null:
                 return;
@@ -47,25 +81,13 @@ class Header extends Component {
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
                 <div className="container">
                     <div className="row">
-                        <a href={this.props.auth ? "/games" : "/"} className="navbar-brand">
-                            Game Stash
-                        </a>
-                        <a href='/scores' className="nav-link mr-auto">
-                            High Scores
-                        </a>
+                        {this.renderLeftContent()}
                     </div>
                     <div className="row" onSubmit={this.onFormSubmit}>
-                        <form className="input-group">
-                            <input
-                                placeholder="Search Games"
-                                className="form-control"
-                                value={this.state.term}
-                                onChange={this.onInputChange}
-                            />
-                        </form>
+                        {this.renderMidContent()}
                     </div>
                     <div className="row">
-                        {this.renderContent()}
+                        {this.renderRightContent()}
                     </div>
                 </div>
             </nav>

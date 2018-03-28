@@ -13,4 +13,14 @@ module.exports = app => {
         });
         res.send();
     })
+
+    app.post('/api/scores', (req, res) => {
+        const currentTime = new Date();
+
+        pool.query('INSERT INTO scores (gID, uID, score, timeOfScore) VALUES (?, ?, ?, ?)', [req.body.game, req.user.uID, req.body.score, currentTime.getTime()], (err, results, fields) => {
+            if (err) throw err;
+
+            res.send();
+        })
+    })
 }

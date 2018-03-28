@@ -7,7 +7,9 @@ class GameList extends Component {
     constructor(props) {
         super(props);
 
-        this.props.fetchGames();
+        if (this.props.games) {
+            this.props.fetchGames();
+        }
     }
 
     renderGames() {

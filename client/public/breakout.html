@@ -220,6 +220,7 @@
                         }
                         if (!lives) {
                             alert("GAME OVER");
+                            localStorage.setItem('score', JSON.stringify(totalScore));
                             document.location.reload();
                         } else {
                             x = canvas.width / 2;

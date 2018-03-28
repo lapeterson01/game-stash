@@ -23,7 +23,6 @@ class Scores extends Component {
     onGameButtonClick = (event) => {
         event.preventDefault();
 
-        console.log(this.props.game);
         if (this.props.game) {
             this.props.fetchGame(this.props.game[0].gID)
                 .then(this.setState({ redirect: true }));
@@ -44,6 +43,14 @@ class Scores extends Component {
     }
 
     renderScores() {
+        console.log(this.props.scores);
+        if (!this.props.scores.length) {
+            return (
+                <div className="row justify-content-center" style={{width:'100%', height:'100px', borderTop:'solid black 2px', margin:'10px'}}>
+                    <h1>No High Scores</h1>
+                </div>
+            )
+        }
         let place = 1;
         return this.props.scores.map(score => 
             <div key={place} className="row" style={{width:'100%', height:'100px', borderTop:'solid black 2px', margin:'10px'}}>
@@ -67,8 +74,6 @@ class Scores extends Component {
     }
 
     render() {
-        console.log(this.props.scores)
-        console.log(this.props.game);
         if (this.state.redirect) {
             if (this.props.game) {
                 return (
@@ -99,7 +104,7 @@ class Scores extends Component {
                         <h2 className="text-center">HIGH SCORES</h2>
                         <hr />
                         <div className="row justify-content-start">
-                            <button className="btn-link" onClick={this.onGameButtonClick}>Play Game</button>
+                            <button className="btn-link" onClick={this.onGameButtonClick}>Play This Game</button>
                         </div>
                         <div className="row" style={{border:"solid black 3px", paddingTop:"15px"}}>
                             <div className="col text-center">
