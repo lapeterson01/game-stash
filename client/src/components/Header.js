@@ -1,31 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import { Redirect } from 'react-router-dom';
 
 class Header extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            term: ""
+            term: "",
+            redirect: false
         }
     }
 
     onInputChange = (event) => {
-        this.setState({ term: event.target.value })
+        this.setState({ term: event.target.value });
     }
 
     onFormSubmit = (event) => {
         event.preventDefault();
 
-        this.props.fetchGames(this.state.term)
-            .then(this.setState({ term: "" }))
-    }
-
-    onLinkClick = (event) => {
-        event.preventDefault();
-
-        window.location.reload();
+        this.setState({ redirect: true })
+        window.location.reload()
     }
 
     renderLeftContent() {
@@ -33,11 +29,11 @@ class Header extends Component {
             case null:
                 return;
             case false:
-                return <a href="/" className="navbar-brand">Game Stash</a>
+                return <a href="/" className="navbar-brand">Gam<img src="https://cdn3.iconfinder.com/data/icons/leisure/100/pacman-512.png" alt="" style={{height:"14px", width:"auto"}} /> Stash</a>
             default:
                 return [
-                    <a href="/games" className="navbar-brand">Game Stash</a>,
-                    <a href='/scores' className="nav-link mr-auto">High Scores</a>
+                    <a key="1" href="/games" className="navbar-brand">Game Stash</a>,
+                    <a key="2" href='/scores' className="nav-link mr-auto">High Scores</a>
                 ]
         }
     }
@@ -70,15 +66,19 @@ class Header extends Component {
                 return <a className="nav-link" href="/auth/google">Login With Google</a>
             default:
                 return [
-                    <a key="1" className="nav-link" href={`/profile/123`}>Profile</a>,
+                    <a key="1" className="nav-link" href={`/profile/${this.props.auth.uID}`}>Profile</a>,
                     <a key="2" className="nav-link" href="/api/logout">Logout</a>
                 ]
         }
     }
 
     render() {
+        const { redirect } = this.state;
+        if (redirect) {
+            return <Redirect to={`/games?search=${this.state.term}`} />
+        }
         return (
-            <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
                 <div className="container">
                     <div className="row">
                         {this.renderLeftContent()}

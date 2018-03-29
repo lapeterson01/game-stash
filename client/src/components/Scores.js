@@ -100,7 +100,7 @@ class Scores extends Component {
             default:
                 
                 return (
-                    <div>
+                    <div className="scores">
                         <h2 className="text-center">HIGH SCORES</h2>
                         <hr />
                         <div className="row justify-content-start">

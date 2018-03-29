@@ -1,9 +1,10 @@
 To Do:
-pagination for game list
+<!-- search games from any route -->
 create profile page
-search games from any route
 require login
+pagination for game list
+pretty designs
+build snake
 users can add friends
 users can send messages
-pretty designs
 deploy

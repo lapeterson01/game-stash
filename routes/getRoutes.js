@@ -27,4 +27,11 @@ module.exports = app => {
             res.send(results);
         })
     });
+
+    app.get('/api/:userID/info', (req, res) => {
+        pool.query('SELECT u.uID, u.name as user, u.imageURL as userImage, u.lastLoginAt, s.sID, s.score, s.timeOfScore, g.gID, g.name as game, g.imageURL as gameImage FROM users as u JOIN scores as s ON u.uID = s.uID JOIN games as g ON s.gID = g.gID WHERE u.uID = ? ORDER BY s.score DESC;', [req.params.userID], (err, results, fields) => {
+            if (err) throw err;
+            res.send(results);
+        })
+    })
 }

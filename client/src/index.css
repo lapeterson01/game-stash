@@ -2,12 +2,6 @@
     margin-top: 75px;
 }
 
-.games {
-    border: 1px black solid;
-    padding: 10px;
-    margin: 10px;
-}
-
 .game-image {
     height: 120px;
     width: auto;
@@ -51,4 +45,67 @@ iframe {
 
 .btn-link:hover {
     cursor: pointer;
+}
+
+.profile-name {
+    margin-left: 60px;
+    font-size: 72px;
+}
+
+* {
+    font-family: Impact;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.login-button {
+    color: #f7f5ec;
+}
+
+.jumbotron {
+    background: linear-gradient(to bottom left, #b4d2f2, #fff);
+}
+
+.display-4 {
+    color: #333022;
+    font-size: 100px;
+}
+
+.lead {
+    color: #333022;
+}
+
+body {
+    background-color: #b4d2f2;
+}
+
+.game-list-upload-bar {
+    padding: 25px;
+}
+
+.container-main {
+    border-radius: 15px;
+    border: 4px #202933 solid;
+    padding: 0px;
+    margin-bottom: 10px;
+    background-color: #202933;
+    background: linear-gradient(to bottom left, #b4d2f2, #202933)
+}
+
+.upload-link {
+    background-color: #b4d2f2;
+    /* background: linear-gradient(to bottom left, #b4d2f2, #202933); */
+    outline: 2px dotted #b4d2f2;
+}
+
+.games {
+    border: 1px black solid;
+    padding: 10px;
+    margin: 10px;
+    background-color: #fff;
+}
+
+.scores {
+    padding: 11px;
+    background: linear-gradient(to bottom left, #b4d2f2, #fff);
 }

@@ -21,7 +21,7 @@ class App extends Component {
         <BrowserRouter>
           <div>
             <Header />
-            <div className="container" id="main-page">
+            <div className="container container-main" id="main-page">
               <Route exact path='/' component={Home} />
               <Route exact path='/games' component={GameList} />
               <Route exact path='/games/new' component={Upload} />
