@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import * as actions from '../actions';
+import queryString from 'query-string';
 
 class Scores extends Component {
     constructor(props) {
@@ -11,25 +12,34 @@ class Scores extends Component {
 
         this.state = {
             game: null,
-            redirect: false
+            scores: null,
+            redirectToGame: false,
+            redirectToScores: false,
+            redirectToSelection: false
+        }
+    }
+
+    componentDidMount = () => {
+        let search = this.props.location.search;  
+        if (search) {
+            const parsed = queryString.parse(search);
+            const game = parsed.game;
+            this.setState({ game });
+            this.props.fetchScores(game);
         }
     }
 
     onDropdownChange = (event) => {
         this.setState({ game: event.target.value });
-        this.props.fetchScores(event.target.value);
+        this.setState({ redirectToScores: true });
     }
 
-    onGameButtonClick = (event) => {
-        event.preventDefault();
+    onBackButtonClick = () => {
+        this.setState({ redirectToSelection: true });
+    }
 
-        if (this.props.game) {
-            this.props.fetchGame(this.props.game[0].gID)
-                .then(this.setState({ redirect: true }));
-        } else {
-            this.props.fetchGame(this.state.game)
-                .then(this.setState({ redirect: true }));
-        }
+    onGameButtonClick = () => {
+        this.setState({ redirectToGame: true })
     }
 
     renderDropdown() {
@@ -43,7 +53,6 @@ class Scores extends Component {
     }
 
     renderScores() {
-        console.log(this.props.scores);
         if (!this.props.scores.length) {
             return (
                 <div className="row justify-content-center" style={{width:'100%', height:'100px', borderTop:'solid black 2px', margin:'10px'}}>
@@ -74,16 +83,16 @@ class Scores extends Component {
     }
 
     render() {
-        if (this.state.redirect) {
-            if (this.props.game) {
-                return (
-                    <Redirect to={`/games/detail/${this.props.game[0].gID}`} />
-                )
-            } else {
-                return (
-                    <Redirect to={`/games/detail/${this.state.game}`} />
-                )
-            }
+        if (this.state.redirectToGame) {
+            return <Redirect to={`/games/detail/${this.state.game}`} />
+        }
+        if (this.state.redirectToScores) {
+            window.location.reload()
+            return <Redirect to={`/scores?game=${this.state.game}`} />
+        }
+        if (this.state.redirectToSelection) {
+            window.location.reload()
+            return <Redirect to='/scores' />
         }
         switch (this.props.scores) {
             case null:
@@ -103,7 +112,8 @@ class Scores extends Component {
                     <div className="scores">
                         <h2 className="text-center">HIGH SCORES</h2>
                         <hr />
-                        <div className="row justify-content-start">
+                        <div className="row justify-content-between">
+                            <button className="btn-link" onClick={this.onBackButtonClick}>Back To Game Selection</button>
                             <button className="btn-link" onClick={this.onGameButtonClick}>Play This Game</button>
                         </div>
                         <div className="row" style={{border:"solid black 3px", paddingTop:"15px"}}>
@@ -131,8 +141,7 @@ const mapStateToProps = (state) => {
     return (
         {
             scores: state.scores,
-            games: state.games,
-            game: state.game
+            games: state.games
         }
     );
 }

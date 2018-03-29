@@ -76,7 +76,8 @@ iframe {
 }
 
 body {
-    background-color: #b4d2f2;
+    /* 202933 */
+    background-color: #20ecc1;
 }
 
 .game-list-upload-bar {
@@ -89,7 +90,7 @@ body {
     padding: 0px;
     margin-bottom: 10px;
     background-color: #202933;
-    background: linear-gradient(to bottom left, #b4d2f2, #202933)
+    background: linear-gradient(to bottom left, #b4d2f2, #fff)
 }
 
 .upload-link {

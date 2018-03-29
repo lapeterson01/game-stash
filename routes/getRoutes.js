@@ -34,4 +34,11 @@ module.exports = app => {
             res.send(results);
         })
     })
+
+    app.get('/api/:userID/games/played', (req, res) => {
+        pool.query('SELECT g.gID, g.name, s.sID, max(s.timeOfScore) as timeOfScore, u.uID FROM games as g JOIN scores as s ON g.gID = s.gID JOIN users as u ON s.uID = u.uID WHERE u.uID = ? GROUP BY g.gID', [req.params.userID], (err, results, fields) => {
+            if (err) throw err;
+            res.send(results);
+        })
+    })
 }

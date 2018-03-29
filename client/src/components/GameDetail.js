@@ -23,12 +23,8 @@ class GameDetail extends Component {
     }
      
 
-    onScoresClick = (event) => {
-        event.preventDefault();
-
-        this.props.fetchScores(this.props.game[0].gID)
-            .then(() => this.props.fetchGame(this.props.game[0].gID))
-            .then(() => this.setState({ redirect: true }));
+    onScoresClick = () => {
+        this.setState({ redirect: true });
     }
 
     render() {
@@ -42,13 +38,13 @@ class GameDetail extends Component {
         let game = this.props.game[0];
         const { redirect } = this.state;
         if (redirect) {
-            return <Redirect to='/scores' />
+            return <Redirect to={`/scores?game=${this.props.match.params.gameID}`} />
         }
         return (
-            <div>
+            <div style={{padding:'20px'}}>
                 <div className="row justify-content-between">
-                    <button className="btn-link" onClick={this.onScoresClick}>See High Scores for {game.name}</button>
                     <a href="/games/new">Upload Your Game</a>
+                    <button className="btn-link" onClick={this.onScoresClick}>See High Scores for {game.name}</button>
                 </div>
                 <hr />
                 <div className="row justify-content-center">

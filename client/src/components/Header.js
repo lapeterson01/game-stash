@@ -32,7 +32,7 @@ class Header extends Component {
                 return <a href="/" className="navbar-brand">Gam<img src="https://cdn3.iconfinder.com/data/icons/leisure/100/pacman-512.png" alt="" style={{height:"14px", width:"auto"}} /> Stash</a>
             default:
                 return [
-                    <a key="1" href="/games" className="navbar-brand">Game Stash</a>,
+                    <a key="1" href="/games" className="navbar-brand">Gam<img src="https://cdn3.iconfinder.com/data/icons/leisure/100/pacman-512.png" alt="" style={{height:"14px", width:"auto"}} /> Stash</a>,
                     <a key="2" href='/scores' className="nav-link mr-auto">High Scores</a>
                 ]
         }

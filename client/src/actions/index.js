@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_USER, FETCH_GAMES, FETCH_GAME, FETCH_SCORES, POST_GAME, POST_SCORE, FETCH_USER_INFO } from './types';
+import { FETCH_USER, FETCH_GAMES, FETCH_GAME, FETCH_SCORES, POST_GAME, POST_SCORE, FETCH_USER_INFO, FETCH_GAMES_USER_PLAYED } from './types';
 
 export const fetchUser = () => async dispatch => {
     const res = await axios.get('/api/current_user')
@@ -55,4 +55,10 @@ export const fetchUserInfo = (user) => async dispatch => {
     const res = await axios.get(`/api/${user}/info`);
 
     dispatch({ type: FETCH_USER_INFO, payload: res.data });
+}
+
+export const fetchGamesUserPlayed = (userID) => async dispatch => {
+    const res = await axios.get(`/api/${userID}/games/played`);
+
+    dispatch({ type: FETCH_GAMES_USER_PLAYED, payload: res.data });
 }

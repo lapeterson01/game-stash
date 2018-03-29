@@ -1,38 +1,32 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import * as actions from '../actions';
 
 class Profile extends Component {
     constructor(props) {
         super(props)
 
+        this.props.fetchGamesUserPlayed(this.props.match.params.userID);
         this.props.fetchUserInfo(this.props.match.params.userID);
     }
 
     renderGames = () => {
-        const { userInfo } = this.props;
-        let gameNames = []
-        let gameIDs = [];
-        userInfo.forEach(user => {
-            if (gameNames.indexOf(user.game) === -1) {
-                gameNames.push(user.game);
-                gameIDs.push(user.gID);
-            }
+        this.props.games.forEach(game => {
+            const date = moment(game.timeOfScore).format("LT l")
+            return game.timeOfScore = date.toString();
         })
-        console.log(gameNames);
-        console.log(gameIDs);
-        let games = [];
-        for (let i = 0; i < gameNames.length; i++) {
-            let game = {
-                name: gameNames[i],
-                gID: gameIDs[i]
-            }
-            games.push(game);
+        if (this.props.games.length) {
+            console.log(this.props.games[0].timeOfScore)
         }
-        console.log(games);
-        return games.map(game =>
-            <div key={game.gID} className="col-12">
-                <h4 className="text-center">{game.name}</h4>
+        return this.props.games.map(game =>
+            <div key={game.gID} className="row justify-content-around" style={{width:'100%'}}>
+                <div className="col">
+                    <h4 className="text-center" >{game.name}</h4>
+                </div>
+                <div className="col">
+                    <p className="text-center">{game.timeOfScore}</p>
+                </div>
             </div>
         )
     }
@@ -47,13 +41,12 @@ class Profile extends Component {
 
     render() {
         const { userInfo } = this.props;
-        console.log(userInfo);
         if (!userInfo.length) {
             return <div className="row justify-content-center">Loading...</div>
         }
         return (
             <div>
-                <div className="row">
+                <div className="row justify-content-center">
                     <img src={userInfo[0].userImage} alt="" style={{height:'120px', width:'auto'}} />
                     <h1 className="profile-name">{userInfo[0].user}</h1>
                 </div>
@@ -82,9 +75,11 @@ class Profile extends Component {
     }
 };
 
-const mapStateToProps = ({ userInfo }) => {
-    console.log(userInfo)
-    return { userInfo }
+const mapStateToProps = (state) => {
+    return {
+        games: state.games,
+        userInfo: state.userInfo
+    }
 }
 
 export default connect(mapStateToProps, actions)(Profile);
