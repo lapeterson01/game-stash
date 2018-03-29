@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import * as actions from '../actions';
 import queryString from 'query-string';
 
@@ -67,10 +67,12 @@ class Scores extends Component {
                     <h6 className="text-center vcenter">{place++}</h6>
                 </div>
                 <div className="col">
-                    <img className="center-block text-center vcenter-image" src={score.profilePic} alt="No Pic" />
-                </div>
-                <div className="col">
-                    <h6 className="text-center vcenter">{score.player}</h6>
+                    <Link to={`/profile/${score.uID}`}>
+                    <div className="row">
+                        <img className="center-block text-center vcenter-image" src={score.profilePic} alt="" />
+                        <h6 className="text-center vcenter">{score.player}</h6>
+                    </div>
+                    </Link>
                 </div>
                 <div className="col">
                     <img className="score-image center-block vcenter-image" src={score.gamePic} alt="" />
@@ -112,11 +114,11 @@ class Scores extends Component {
                     <div className="scores">
                         <h2 className="text-center">HIGH SCORES</h2>
                         <hr />
-                        <div className="row justify-content-between">
+                        <div className="row justify-content-around">
                             <button className="btn-link" onClick={this.onBackButtonClick}>Back To Game Selection</button>
                             <button className="btn-link" onClick={this.onGameButtonClick}>Play This Game</button>
                         </div>
-                        <div className="row" style={{border:"solid black 3px", paddingTop:"15px"}}>
+                        <div className="row" style={{border:"solid black 3px", paddingTop:"15px", width:'75%', marginLeft:'auto', marginRight: 'auto'}}>
                             <div className="col text-center">
                                 <h4>Place</h4>
                             </div>

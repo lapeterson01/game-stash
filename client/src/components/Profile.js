@@ -16,9 +16,6 @@ class Profile extends Component {
             const date = moment(game.timeOfScore).format("LT l")
             return game.timeOfScore = date.toString();
         })
-        if (this.props.games.length) {
-            console.log(this.props.games[0].timeOfScore)
-        }
         return this.props.games.map(game =>
             <div key={game.gID} className="row justify-content-around" style={{width:'100%'}}>
                 <div className="col">
