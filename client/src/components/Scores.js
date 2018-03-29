@@ -69,7 +69,7 @@ class Scores extends Component {
                 <div className="col">
                     <Link to={`/profile/${score.uID}`}>
                     <div className="row">
-                        <img className="center-block text-center vcenter-image" src={score.profilePic} alt="" />
+                        <img className="center-block text-center vcenter-image" src={score.profilePic} alt="" style={{width:'50px', height:'50px'}} />
                         <h6 className="text-center vcenter">{score.player}</h6>
                     </div>
                     </Link>
