@@ -54,7 +54,7 @@ class Profile extends Component {
             return <div className="row justify-content-center">Loading...</div>
         }
         return (
-            <div>
+            <div style={{padding:'20px'}}>
                 <div className="row justify-content-center">
                     <img src={userInfo[0].userImage} alt="" style={{height:'120px', width:'auto'}} />
                     <h1 className="profile-name">{userInfo[0].user}</h1>
