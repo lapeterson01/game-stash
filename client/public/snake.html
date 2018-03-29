@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Snake</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        canvas {
+            background: #eee;
+            display: block;
+            margin: 0 auto;
+            border: 1px #202933 solid;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="720" height="560"></canvas>
+
+    <script>
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+        var w = canvas.width;
+        var h = canvas.height;
+
+        var cw = 10;
+        var direction;
+        var food;
+        var score;
+
+        var snakeArray;
+        var gameLoop;
+
+        function init() {
+            direction = "right";
+            createSnake();
+            createFood();
+            score = 0;
+
+            gameLoop = setInterval(paint, 60);
+        }
+        init();
+
+        function createSnake() {
+            var length = 5;
+            snakeArray = [];
+            for (var i = length - 1; i >= 0; i--) {
+                snakeArray.push({ x: i, y: 0 });
+            }
+        }
+
+        function createFood() {
+            food = {
+                x: Math.floor(Math.random() * (w - cw) / cw),
+                y: Math.floor(Math.random() * (h - cw) / cw)
+            }
+        }
+
+        function paint() {
+            ctx.fillStyle = "#eee";
+            ctx.fillRect(0,0,w,h);
+            ctx.strokeStyle = "black";
+            ctx.strokeRect(0,0,w,h);
+
+            var nx = snakeArray[0].x;
+            var ny = snakeArray[0].y;
+
+            if (direction == "right") {
+                nx++;
+            } else if (direction == "left") {
+                nx--;
+            } else if (direction == "up") {
+                ny--;
+            } else if (direction == "down") {
+                ny++;
+            }
+
+            if (nx == -1 || nx == w/cw || ny == -1 || ny == h/cw || checkCollision(nx, ny, snakeArray)) {
+                alert("GAME OVER")
+                localStorage.setItem('score', JSON.stringify(score));
+                document.location.reload();
+            }
+
+            if (nx == food.x && ny == food.y) {
+                var tail = { x: nx, y: ny };
+                score++
+
+                createFood();
+            } else {
+                var tail = snakeArray.pop();
+                tail.x = nx; tail.y = ny;
+            }
+
+            snakeArray.unshift(tail);
+
+            for (var i = 0; i < snakeArray.length; i++) {
+                var c = snakeArray[i];
+
+                paintCell(c.x, c.y);
+            }
+
+            paintCell(food.x, food.y);
+
+            var scoreText = "Score: " + score;
+            ctx.font = "16px Arial";
+            ctx.fillText(scoreText, 5, h-5);
+        }
+
+        function paintCell(x, y) {
+            ctx.fillStyle = 'blue';
+            ctx.fillRect(x * cw, y * cw, cw, cw);
+            ctx.strokeStyle = "white";
+            ctx.strokeRect(x * cw, y * cw, cw, cw);
+        }
+
+        function checkCollision(x, y, array) {
+            for (var i = 0; i < array.length; i++) {
+                if (array[i].x == x && array[i].y == y) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        document.addEventListener('keydown', keyDownHandler, false);
+
+        function keyDownHandler(event) {
+            let { keyCode } = event;
+
+            if (keyCode == '37' && direction != "right") {
+                direction = "left";
+            } else if (keyCode == '38' && direction != 'down') {
+                direction = 'up';
+            } else if (keyCode == '39' && direction != 'left') {
+                direction = 'right';
+            } else if (keyCode == '40' && direction != 'up') {
+                direction = 'down';
+            }
+        }
+    </script>
+</body>
+</html>
