@@ -112,12 +112,12 @@ class Scores extends Component {
                 
                 return (
                     <div className="scores">
-                        <h2 className="text-center">HIGH SCORES</h2>
-                        <hr />
-                        <div className="row justify-content-around">
+                        <div className="row justify-content-between">
                             <button className="btn-link" onClick={this.onBackButtonClick}>Back To Game Selection</button>
                             <button className="btn-link" onClick={this.onGameButtonClick}>Play This Game</button>
                         </div>
+                        <hr />
+                        <h2 className="text-center">HIGH SCORES</h2>
                         <div className="row" style={{border:"solid black 3px", paddingTop:"15px", width:'75%', marginLeft:'auto', marginRight: 'auto'}}>
                             <div className="col text-center">
                                 <h4>Place</h4>

@@ -76,8 +76,8 @@ iframe {
 }
 
 body {
-    /* 202933 */
-    background-color: #20ecc1;
+    /* 20ecc1 */
+    background-color: #06e6b7;
 }
 
 .game-list-upload-bar {
@@ -107,6 +107,5 @@ body {
 }
 
 .scores {
-    padding: 11px;
-    background: linear-gradient(to bottom left, #b4d2f2, #fff);
+    padding: 20px;
 }

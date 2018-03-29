@@ -34,6 +34,8 @@
         var snakeArray;
         var gameLoop;
 
+        var waitingToStart = true;
+
         function init() {
             direction = "right";
             createSnake();
@@ -59,6 +61,12 @@
             }
         }
 
+        function drawInstructions() {
+            ctx.font = "50px Arial";
+            ctx.fillStyle = "#0095dd";
+            ctx.fillText("Press Space to Begin", 125, 280);
+        }
+
         function paint() {
             ctx.fillStyle = "#eee";
             ctx.fillRect(0,0,w,h);
@@ -67,42 +75,46 @@
 
             var nx = snakeArray[0].x;
             var ny = snakeArray[0].y;
-
-            if (direction == "right") {
-                nx++;
-            } else if (direction == "left") {
-                nx--;
-            } else if (direction == "up") {
-                ny--;
-            } else if (direction == "down") {
-                ny++;
-            }
-
-            if (nx == -1 || nx == w/cw || ny == -1 || ny == h/cw || checkCollision(nx, ny, snakeArray)) {
-                alert("GAME OVER")
-                localStorage.setItem('score', JSON.stringify(score));
-                document.location.reload();
-            }
-
-            if (nx == food.x && ny == food.y) {
-                var tail = { x: nx, y: ny };
-                score++
-
-                createFood();
+            
+            if (waitingToStart) {
+                drawInstructions();
             } else {
-                var tail = snakeArray.pop();
-                tail.x = nx; tail.y = ny;
+                if (direction == "right") {
+                    nx++;
+                } else if (direction == "left") {
+                    nx--;
+                } else if (direction == "up") {
+                    ny--;
+                } else if (direction == "down") {
+                    ny++;
+                }
+
+                if (nx == -1 || nx == w/cw || ny == -1 || ny == h/cw || checkCollision(nx, ny, snakeArray)) {
+                    waitingToStart = true;
+                    localStorage.setItem('score', JSON.stringify(score));
+                    document.location.reload();
+                }
+
+                if (nx == food.x && ny == food.y) {
+                    var tail = { x: nx, y: ny };
+                    score++
+
+                    createFood();
+                } else {
+                    var tail = snakeArray.pop();
+                    tail.x = nx; tail.y = ny;
+                }
+
+                snakeArray.unshift(tail);
+
+                for (var i = 0; i < snakeArray.length; i++) {
+                    var c = snakeArray[i];
+
+                    paintCell(c.x, c.y);
+                }
+
+                paintCell(food.x, food.y);
             }
-
-            snakeArray.unshift(tail);
-
-            for (var i = 0; i < snakeArray.length; i++) {
-                var c = snakeArray[i];
-
-                paintCell(c.x, c.y);
-            }
-
-            paintCell(food.x, food.y);
 
             var scoreText = "Score: " + score;
             ctx.font = "16px Arial";
@@ -127,6 +139,7 @@
         document.addEventListener('keydown', keyDownHandler, false);
 
         function keyDownHandler(event) {
+            event.preventDefault();
             let { keyCode } = event;
 
             if (keyCode == '37' && direction != "right") {
@@ -137,6 +150,8 @@
                 direction = 'right';
             } else if (keyCode == '40' && direction != 'up') {
                 direction = 'down';
+            } else if (keyCode == '32' && waitingToStart) {
+                waitingToStart = false;
             }
         }
     </script>

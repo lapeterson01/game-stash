@@ -29,9 +29,21 @@ class Profile extends Component {
     }
 
     renderScores = () => {
-        return (
-            <div>
-                <h4>List of Scores</h4>
+        this.props.userInfo.forEach(score => {
+            const date = moment(score.timeOfScore).format("LT l")
+            return score.timeOfScore = date.toString();
+        })
+        return this.props.userInfo.map(score =>
+            <div key={score.gID} className="row justify-content-around" style={{width:'100%'}}>
+                <div className="col">
+                    <h4 className="text-center">{score.game}</h4>
+                </div>
+                <div className="col">
+                    <h4 className="text-center">{score.score}</h4>
+                </div>
+                <div className="col">
+                    <p className="text-center">{score.timeOfScore}</p>
+                </div>
             </div>
         )
     }
