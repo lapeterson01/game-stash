@@ -30,11 +30,11 @@ export const fetchScores = (game) => async dispatch => {
 export const postGame = (file) => async dispatch => {
     let formData = new FormData();
     formData.append('file', file);
-    // const config = {
-    //     headers: {
-    //         'content-type': 'multipart/form-data'
-    //     }
-    // }
+    const config = {
+        headers: {
+            'content-type': 'multipart/form-data'
+        }
+    }
     const res = await axios.post('/api/games', formData)
 
     dispatch({ type: POST_GAME, payload: res.data });

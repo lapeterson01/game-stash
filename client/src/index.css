@@ -76,7 +76,6 @@ iframe {
 }
 
 body {
-    /* 20ecc1 */
     background-color: #06e6b7;
 }
 
@@ -95,7 +94,6 @@ body {
 
 .upload-link {
     background-color: #b4d2f2;
-    /* background: linear-gradient(to bottom left, #b4d2f2, #202933); */
     outline: 2px dotted #b4d2f2;
 }
 
